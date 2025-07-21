@@ -1,0 +1,76 @@
+# ------------------------------------------------------------------------------
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (C) 2025 Jayesh Badwaik <j.badwaik@fz-juelich.de>
+# ------------------------------------------------------------------------------
+
+
+[project]
+name = "easyspack"
+dynamic = ["version"]
+description = 'easyspack : A Connector for Spack and EasyBuild'
+readme = "readme.md"
+license = "Apache-2.0"
+authors = [
+{ name = "Jayesh Badwaik", email = "j.badwaik@fz-juelich.de" },
+]
+dependencies = [
+  "semver",
+  "luaparser",
+  "lmodule"
+]
+
+[project.urls]
+Documentation = "https://github.com/easyspack/easyspack"
+Issues = "https://github.com/easyspack/easyspack/issues"
+Source = "https://github.com/easyspack/easyspack"
+
+[project.scripts]
+easyspack = "easyspack.cli:main"
+
+# --------------------------------------------------------------------------------------------------
+# Hatch configuration
+# --------------------------------------------------------------------------------------------------
+[tool.hatch.version]
+path = "src/easyspack/metadata.py"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/easyspack"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"share"="share"
+
+# --------------------------------------------------------------------------------------------------
+# PyTest configuration
+# --------------------------------------------------------------------------------------------------
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "--cov --cov-report term-missing --cov-fail-under=80"
+
+[tool.black]
+line-length = 100
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "pytest-cov"
+]
+
+[tool.hatch.envs.types]
+dependencies = [
+  "types-PyYAML",
+  "mypy",
+  "semver",
+  "pytest"
+]
+
+#[tool.hatch.envs.doc]
+#dependencies = [
+#  "mkdocs",
+#  "mkdocstrings[python]",
+#  "mkdocs-material",
+#  "mike"
+#]
