@@ -5,5 +5,7 @@
 
 # easyspack - a connector from easybuild to spack
 
-The connector will allow users to use spack as a package manager for the
-modules from the underlying easybuild framework.
+The connector will allow users to use spack as a package manager for the modules
+from the underlying easybuild framework.
+
+

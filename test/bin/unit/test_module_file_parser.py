@@ -5,6 +5,7 @@
 
 
 import luaparser.ast
+import json
 
 
 def test_parse_modulefile_01():
@@ -15,8 +16,11 @@ def test_parse_modulefile_01():
 
     modulefile_ast = luaparser.ast.parse(modulefile_string)
 
+    ast_json = None
+    for index, node in enumerate(luaparser.ast.walk(modulefile_ast)):
+        if index == 0:
+            ast_json = json.loads((luaparser.ast.to_pretty_json(node)))["body"]["body"]
+        else:
+            break
 
-    for node in luaparser.ast.walk(modulefile_ast):
-        print(luaparser.ast.to_pretty_str(node))
-    # print(luaparser.ast.to_pretty_str(modulefile_ast))
-    # print("Hello, world!")
+    print(json.dumps(ast_json, indent=2))
